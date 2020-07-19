@@ -51,6 +51,7 @@ Program er
         ENDIF
 
         ! Generate the degree sequence
+        deg = 0
         Do while (sum(deg) == 0 .or. mod(sum(deg), 2) == 1)
             call poisson(n, deg, ave_deg, cdf)
         Enddo
