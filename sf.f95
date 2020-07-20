@@ -9,19 +9,19 @@ Program sf
     real*8 :: pdf(10**7), cdf(10**7)
 
     ! Parameters
-    !alpha = 2.2
+    alpha = 2.2
     !alpha = 2.4
     !alpha = 2.6
-    alpha = 2.8
+    !alpha = 2.8
     kmin = 2
     ! The following normalization constants are obtained by calculating 
     ! 1./(zeta(alpha)-\sum\limits_{k=1}^{kmin-1}(k^{-alpha}))
     ! We use zeta from scipy.special for this since series convergence is 
     ! slow for direct computation
-    !norm = 2.0385562062781037 ! alpha = 2.2, kmin = 2
+    norm = 2.0385562062781037 ! alpha = 2.2, kmin = 2
     !norm = 2.608630829915787 ! alpha = 2.4, kmin = 2
     !norm = 3.2735602073201586 ! alpha = 2.6, kmin = 2
-    norm = 4.048068017499963 ! alpha = 2.8, kmin = 2
+    !norm = 4.048068017499963 ! alpha = 2.8, kmin = 2
 
     ! Calculate the CDF of the discrete power-law
     IF (kmin > 1) THEN
@@ -36,35 +36,35 @@ Program sf
         print*, ind
         ! Open the output files
         IF (ind < 10) THEN
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/deg",I1,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/deg",I1,".dat")')ind
             open(unit = 1, file = filename)
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/sf",I1,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/sf",I1,".dat")')ind
             open(unit = 2, file = filename)
         ELSEIF (ind < 100) THEN
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/deg",I2,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/deg",I2,".dat")')ind
             open(unit = 1, file = filename)
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/sf",I2,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/sf",I2,".dat")')ind
             open(unit = 2, file = filename)
         ELSEIF (ind < 1000) THEN
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/deg",I3,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/deg",I3,".dat")')ind
             open(unit = 1, file = filename)
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/sf",I3,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/sf",I3,".dat")')ind
             open(unit = 2, file = filename)
         ELSEIF (ind < 10000) THEN
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/deg",I4,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/deg",I4,".dat")')ind
             open(unit = 1, file = filename)
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/sf",I4,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/sf",I4,".dat")')ind
             open(unit = 2, file = filename)
         ELSEIF (ind < 100000) THEN
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/deg",I5,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/deg",I5,".dat")')ind
             open(unit = 1, file = filename)
-            write(filename, '("Graphs/SF/alpha2.8_kmin2/sf",I5,".dat")')ind
+            write(filename, '("Graphs/SF/alpha2.2_kmin2/sf",I5,".dat")')ind
             open(unit = 2, file = filename)
         ENDIF
 
         ! Generate the degree sequence
         deg = 0
-        Do while (sum(deg) == 0 .or. mod(sum(deg), 2) == 1)
+        Do while (sum(deg) == 0 .or. mod(sum(deg), 2) == 1 .or. maxval(deg) > n)
             call discrete_power_law(n, deg, alpha, kmin, cdf)
         Enddo
         Do i = 1, n

@@ -52,6 +52,7 @@ module random
         integer*8 :: i, j, n, kmin, x(n)
         real*8 :: r, alpha, cdf(10**7)
 
+            x = 0
             Do j = 1, 10000
                 call random_number(r)
                 Do i = kmin, 10**7
